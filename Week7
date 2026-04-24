@@ -1,0 +1,27 @@
+from datetime import datetime
+
+class Record:
+    """Base class for air-quality records."""
+
+    def __init__(self, timestamp: str):
+        # Encapsulation: private attribute
+        self.__timestamp = self._validate_timestamp(timestamp)
+
+    def _validate_timestamp(self, ts: str) -> str:
+        try:
+            datetime.strptime(ts, "%Y-%m-%d %H:%M:%S")
+            return ts
+        except ValueError:
+            raise ValueError("Invalid timestamp format. Use YYYY-MM-DD HH:MM:SS")
+
+    # Getter
+    def get_timestamp(self) -> str:
+        return self.__timestamp
+
+    # Setter
+    def set_timestamp(self, ts: str):
+        self.__timestamp = self._validate_timestamp(ts)
+
+    # Method to be overridden
+    def describe(self):
+        return f"Record at {self.__timestamp}"

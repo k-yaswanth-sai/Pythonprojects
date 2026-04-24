@@ -1,0 +1,9 @@
+import pandas as pd
+
+def compute_trends(df: pd.DataFrame):
+    return {
+        "avg_pm25": df["pm25"].mean(),
+        "max_pm25": df["pm25"].max(),
+        "min_pm25": df["pm25"].min(),
+        "hazardous_days": (df["aqi"] > 200).sum()
+    }

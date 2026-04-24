@@ -1,0 +1,9 @@
+from record import Record
+
+class PollutantRecord(Record):
+    def __init__(self, timestamp, pm25, pm10, no2, so2, co, o3):
+        super().__init__(timestamp)
+        self.pm25, self.pm10, self.no2, self.so2, self.co, self.o3 = pm25, pm10, no2, so2, co, o3
+
+    def describe(self):
+        return f"{self.get_timestamp()} → PM2.5={self.pm25}, PM10={self.pm10}, NO₂={self.no2}"

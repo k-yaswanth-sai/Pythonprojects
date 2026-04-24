@@ -1,6 +1,5 @@
-import csv
-import json
-from pollutant import PollutantRecord
+import csv, json
+from models.pollutant import PollutantRecord
 
 class FileHandler:
     """Handles saving and loading pollutant records."""
@@ -8,30 +7,28 @@ class FileHandler:
     @staticmethod
     def save_to_csv(records, filename="air_quality.csv"):
         try:
-            with open(filename, mode="w", newline="") as file:
-                writer = csv.writer(file)
-                writer.writerow(["timestamp", "pm25", "pm10", "no2", "so2", "co", "o3"])
+            with open(filename, "w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(["timestamp","pm25","pm10","no2","so2","co","o3"])
                 for r in records:
                     writer.writerow([r.get_timestamp(), r.pm25, r.pm10, r.no2, r.so2, r.co, r.o3])
-            print(f"Data saved to {filename}")
         except Exception as e:
-            print(f"Error saving to CSV: {e}")
+            print(f"CSV save error: {e}")
 
     @staticmethod
     def load_from_csv(filename="air_quality.csv"):
         records = []
         try:
-            with open(filename, mode="r") as file:
-                reader = csv.DictReader(file)
+            with open(filename, "r") as f:
+                reader = csv.DictReader(f)
                 for row in reader:
                     records.append(PollutantRecord(
                         row["timestamp"], float(row["pm25"]), float(row["pm10"]),
-                        float(row["no2"]), float(row["so2"]), float(row["co"]), float(row["o3"])
-                    ))
-            return records
+                        float(row["no2"]), float(row["so2"]), float(row["co"]), float(row["o3"]
+                    )))
         except Exception as e:
-            print(f"Error loading from CSV: {e}")
-            return []
+            print(f"CSV load error: {e}")
+        return records
 
     @staticmethod
     def save_to_json(records, filename="air_quality.json"):
@@ -41,24 +38,22 @@ class FileHandler:
                 "pm25": r.pm25, "pm10": r.pm10, "no2": r.no2,
                 "so2": r.so2, "co": r.co, "o3": r.o3
             } for r in records]
-            with open(filename, "w") as file:
-                json.dump(data, file, indent=4)
-            print(f"Data saved to {filename}")
+            with open(filename, "w") as f:
+                json.dump(data, f, indent=4)
         except Exception as e:
-            print(f"Error saving to JSON: {e}")
+            print(f"JSON save error: {e}")
 
     @staticmethod
     def load_from_json(filename="air_quality.json"):
         records = []
         try:
-            with open(filename, "r") as file:
-                data = json.load(file)
+            with open(filename, "r") as f:
+                data = json.load(f)
                 for row in data:
                     records.append(PollutantRecord(
                         row["timestamp"], row["pm25"], row["pm10"],
                         row["no2"], row["so2"], row["co"], row["o3"]
                     ))
-            return records
         except Exception as e:
-            print(f"Error loading from JSON: {e}")
-            return []
+            print(f"JSON load error: {e}")
+        return records

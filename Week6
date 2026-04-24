@@ -1,0 +1,22 @@
+class PollutantReading:
+    def __init__(self, timestamp, pm25, pm10):
+        self.timestamp = timestamp
+        self.pm25 = pm25
+        self.pm10 = pm10
+
+    def display(self):
+        print(f"{self.timestamp} | PM2.5: {self.pm25} µg/m³ | PM10: {self.pm10} µg/m³")
+
+    def sub_index_pm25(self):
+        # Simplified sub-index calculation
+        return self.pm25 / 10
+
+    def sub_index_pm10(self):
+        return self.pm10 / 10
+
+
+# Demo usage
+reading1 = PollutantReading("2025-01-15 10:00", 120, 88)
+reading1.display()
+print("PM2.5 Sub-Index:", reading1.sub_index_pm25())
+print("PM10 Sub-Index:", reading1.sub_index_pm10())

@@ -1,0 +1,11 @@
+import matplotlib.pyplot as plt
+
+def plot_pollutant_trend(df: pd.DataFrame, pollutant="pm25"):
+    plt.figure(figsize=(8,4))
+    plt.plot(df["timestamp"], df[pollutant], marker="o")
+    plt.title(f"{pollutant} Trend Over Time")
+    plt.xlabel("Time")
+    plt.ylabel(pollutant)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()

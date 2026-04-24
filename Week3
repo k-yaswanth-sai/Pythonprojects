@@ -1,0 +1,37 @@
+records = []
+
+def add_record():
+    pm25 = float(input("Enter PM2.5 value (µg/m³): "))
+    pm10 = float(input("Enter PM10 value (µg/m³): "))
+    timestamp = input("Enter timestamp (YYYY-MM-DD HH:MM): ").strip().lower()
+
+    if pm25 > 0 and pm10 > 0:
+        records.append([timestamp, pm25, pm10])
+        print("Record added successfully!")
+    else:
+        print("Invalid values!")
+
+def list_records():
+    print("\n--- Pollutant Records ---")
+    print("Timestamp".ljust(20), "PM2.5".ljust(10), "PM10".ljust(10))
+    for rec in records:
+        print(rec[0].ljust(20), str(rec[1]).ljust(10), str(rec[2]).ljust(10))
+
+def search_record():
+    ts = input("Enter timestamp to search: ").strip().lower()
+    found = False
+    for rec in records:
+        if rec[0] == ts:
+            print(f"Found: {rec[0]} | PM2.5: {rec[1]} µg/m³ | PM10: {rec[2]} µg/m³")
+            found = True
+    if not found:
+        print("No record found for that timestamp.")
+
+# Demo menu
+while True:
+    print("\n1. Add Record\n2. List Records\n3. Search Record\n4. Exit")
+    choice = input("Choice: ")
+    if choice == "1": add_record()
+    elif choice == "2": list_records()
+    elif choice == "3": search_record()
+    elif choice == "4": break

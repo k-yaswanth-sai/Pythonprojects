@@ -1,0 +1,5 @@
+import pandas as pd
+
+def moving_average(df: pd.DataFrame, pollutant="pm25", window=3):
+    df[f"{pollutant}_ma"] = df[pollutant].rolling(window=window).mean()
+    return df

@@ -1,9 +1,10 @@
-from record import Record
+from models.pollutant import PollutantRecord
+from storage.file_handler import FileHandler
 
-class PollutantRecord(Record):
-    def __init__(self, timestamp, pm25, pm10, no2, so2, co, o3):
-        super().__init__(timestamp)
-        self.pm25, self.pm10, self.no2, self.so2, self.co, self.o3 = pm25, pm10, no2, so2, co, o3
+def run_demo():
+    record = PollutantRecord("2026-04-24 10:00:00", 35, 60, 25, 12, 0.8, 30)
+    print(record.describe())
+    FileHandler.save_to_csv([record])
 
-    def describe(self):
-        return f"{self.get_timestamp()} → PM2.5={self.pm25}, PM10={self.pm10}, NO₂={self.no2}"
+if __name__ == "__main__":
+    run_demo()

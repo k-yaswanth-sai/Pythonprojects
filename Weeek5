@@ -1,0 +1,30 @@
+records = []
+timestamps = set()
+pollutants = ("pm25", "pm10")
+
+def add_record():
+    pm25 = float(input("Enter PM2.5 value (µg/m³): "))
+    pm10 = float(input("Enter PM10 value (µg/m³): "))
+    timestamp = input("Enter timestamp (YYYY-MM-DD HH:MM): ").strip()
+
+    if timestamp in timestamps:
+        print("Timestamp already exists! Record not added.")
+        return
+
+    record = {"timestamp": timestamp, "pm25": pm25, "pm10": pm10}
+    records.append(record)
+    timestamps.add(timestamp)
+    print("Record added successfully!")
+
+def list_records():
+    print("\n--- Pollutant Records ---")
+    for rec in records:
+        print(f"{rec['timestamp']} | PM2.5: {rec['pm25']} µg/m³ | PM10: {rec['pm10']} µg/m³")
+
+# Menu
+while True:
+    print("\n1. Add Record\n2. List Records\n3. Exit")
+    choice = input("Choice: ")
+    if choice == "1": add_record()
+    elif choice == "2": list_records()
+    elif choice == "3": break

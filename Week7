@@ -25,3 +25,22 @@ class Record:
     # Method to be overridden
     def describe(self):
         return f"Record at {self.__timestamp}"
+from record import Record
+
+class PollutantRecord(Record):
+    """Derived class for pollutant data."""
+
+    def __init__(self, timestamp: str, pm25: float, pm10: float, no2: float, so2: float, co: float, o3: float):
+        super().__init__(timestamp)
+        self.pm25 = pm25
+        self.pm10 = pm10
+        self.no2 = no2
+        self.so2 = so2
+        self.co = co
+        self.o3 = o3
+
+    # Method overriding
+    def describe(self):
+        return (f"Pollutant Record at {self.get_timestamp()} → "
+                f"PM2.5={self.pm25}, PM10={self.pm10}, NO₂={self.no2}, "
+                f"SO₂={self.so2}, CO={self.co}, O₃={self.o3}")

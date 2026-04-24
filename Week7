@@ -1,37 +1,48 @@
 from datetime import datetime
 
 class Record:
-    """Base class for air-quality records."""
+    """
+    Base class for air-quality records.
+    Demonstrates encapsulation, private attributes, and getter/setter methods.
+    """
 
     def __init__(self, timestamp: str):
-        # Encapsulation: private attribute
+        # Private attribute (encapsulation)
         self.__timestamp = self._validate_timestamp(timestamp)
 
     def _validate_timestamp(self, ts: str) -> str:
+        """Validate timestamp format: YYYY-MM-DD HH:MM:SS"""
         try:
             datetime.strptime(ts, "%Y-%m-%d %H:%M:%S")
             return ts
         except ValueError:
             raise ValueError("Invalid timestamp format. Use YYYY-MM-DD HH:MM:SS")
 
-    # Getter
+    # Getter method
     def get_timestamp(self) -> str:
         return self.__timestamp
 
-    # Setter
+    # Setter method
     def set_timestamp(self, ts: str):
         self.__timestamp = self._validate_timestamp(ts)
 
     # Method to be overridden
-    def describe(self):
+    def describe(self) -> str:
         return f"Record at {self.__timestamp}"
+
+
 from record import Record
 
 class PollutantRecord(Record):
-    """Derived class for pollutant data."""
+    """
+    Derived class for pollutant data.
+    Demonstrates inheritance and method overriding.
+    """
 
     def __init__(self, timestamp: str, pm25: float, pm10: float, no2: float, so2: float, co: float, o3: float):
+        # Inherit timestamp handling from Record
         super().__init__(timestamp)
+        # Public pollutant attributes
         self.pm25 = pm25
         self.pm10 = pm10
         self.no2 = no2
@@ -40,7 +51,8 @@ class PollutantRecord(Record):
         self.o3 = o3
 
     # Method overriding
-    def describe(self):
+    def describe(self) -> str:
         return (f"Pollutant Record at {self.get_timestamp()} → "
                 f"PM2.5={self.pm25}, PM10={self.pm10}, NO₂={self.no2}, "
                 f"SO₂={self.so2}, CO={self.co}, O₃={self.o3}")
+

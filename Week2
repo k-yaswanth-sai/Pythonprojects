@@ -1,0 +1,31 @@
+records = []
+
+while True:
+    print("\n--- AQRS Menu ---")
+    print("1. Add Pollutant Record")
+    print("2. View Records")
+    print("3. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        pm25 = float(input("Enter PM2.5 value (µg/m³): "))
+        pm10 = float(input("Enter PM10 value (µg/m³): "))
+        timestamp = input("Enter timestamp (YYYY-MM-DD HH:MM): ")
+
+        if pm25 > 0 and pm10 > 0:
+            records.append([timestamp, pm25, pm10])
+            print("Record added successfully!")
+        else:
+            print("Invalid values! Must be > 0.")
+
+    elif choice == "2":
+        print("\n--- Pollutant Records ---")
+        for rec in records:
+            print(f"{rec[0]} | PM2.5: {rec[1]} µg/m³ | PM10: {rec[2]} µg/m³")
+
+    elif choice == "3":
+        print("Exiting AQRS...")
+        break
+    else:
+        print("Invalid choice. Try again.")
